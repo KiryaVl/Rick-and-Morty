@@ -34,6 +34,11 @@ public class ControllerApi {
     }
 
 
+    /**
+     * Метод вывода случайных 20 персонажей из API
+     * @param model
+     * @return
+     */
     @GetMapping("/")
     public String showRandomCharacters(Model model) {
         List<Result> characters = apiService.getRandomCharacters(20); // Получение 20 случайных персонажей
@@ -41,6 +46,12 @@ public class ControllerApi {
         return "characters"; // Возвращает страницу characters.html
     }
 
+    /**
+     * Метод вывода следующей страницы с персонажами
+     * @param model
+     * @param session
+     * @return
+     */
     @GetMapping("/next")
     public String showNextCharacters(Model model, HttpSession session) {
         Integer nextPage = (Integer) session.getAttribute("nextPage");
@@ -53,6 +64,12 @@ public class ControllerApi {
         return "characters";
     }
 
+    /**
+     * Метод вывода предыдущей страницы с персонажами
+     * @param model
+     * @param session
+     * @return
+     */
     @GetMapping("/prev")
     public String showPreviousCharacters(Model model, HttpSession session) {
         Integer prevPage = (Integer) session.getAttribute("prevPage");
