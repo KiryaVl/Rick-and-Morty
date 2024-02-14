@@ -42,11 +42,31 @@ public class ServiceApiImpl implements ServiceApi {
 
 
     @Override
-        public Result getCharacterById (Integer id){
-            String characterUrl = CHARACTER_API + "/" + id;
-            HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
-            ResponseEntity<Result> response = restTemplate.exchange(characterUrl, HttpMethod.GET, entity, Result.class);
-            return response.getBody();
-        }
+    public Result getCharacterById(Integer id) {
+        String characterUrl = CHARACTER_API + "/" + id;
+        HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<Result> response = restTemplate.exchange(characterUrl, HttpMethod.GET, entity, Result.class);
+        return response.getBody();
     }
+
+    @Override
+    public List<Result> getNextCharacters(int page) {
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<Character> response = restTemplate.exchange(CHARACTER_API + "/?page=" + page, HttpMethod.GET,
+                entity,
+                Character.class);
+        return response.getBody().getResults();
+    }
+
+    @Override
+    public List<Result> getPreviousCharacters(int page) {
+        httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
+        ResponseEntity<Character> response = restTemplate.exchange(CHARACTER_API + "/?page=" + page, HttpMethod.GET,
+                entity,
+                Character.class);
+        return response.getBody().getResults();
+    }
+}
 

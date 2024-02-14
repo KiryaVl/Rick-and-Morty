@@ -10,5 +10,9 @@ public interface ServiceApi {
     List<Result> getRandomCharacters(int count);
 
     Result getCharacterById(Integer id);
+
+    List<Result> getNextCharacters(int page);
+
+    List<Result>  getPreviousCharacters(int page);
 }
 
